@@ -3,6 +3,8 @@ namespace api\controller;
 
 class IndexController
 {
+    private \service\RelayService $service;
+
     public function __construct()
     {
         $data = [

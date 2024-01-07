@@ -15,7 +15,6 @@ class RelayRepository extends Repository
 
             return $relay;
         } catch (\Exception $e) {
-            var_dump($e->getMessage());
             throw new \error\InternalServer();
         }
     }
