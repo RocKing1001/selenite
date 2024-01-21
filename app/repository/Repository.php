@@ -2,11 +2,13 @@
 
 namespace repository;
 
-abstract class Repository {
+abstract class Repository
+{
     protected \PDO $connection;
 
-    public function __construct() {
-        require __DIR__ . '/../dbconfig.php';
+    public function __construct()
+    {
+        require __DIR__.'/../dbconfig.php';
 
         try {
             $this->connection = new \PDO("$type:host=$servername;dbname=$database", $username, $password);
@@ -19,5 +21,4 @@ abstract class Repository {
             throw new \error\InternalServer();
         }
     }
-
 }

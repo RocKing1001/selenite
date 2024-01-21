@@ -30,7 +30,6 @@ class WarframeController
         $relay = $this->service->getRelayById($relayId);
 
         $data = [
-            'php_version' => phpversion(),
             'baro' => [
                 'time' => $baroTimeReadable,
                 'relay' => $relay->getRelayName().' ('.$relay->getPlanet().')',

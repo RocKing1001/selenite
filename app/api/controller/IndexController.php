@@ -1,4 +1,5 @@
 <?php
+
 namespace api\controller;
 
 class IndexController

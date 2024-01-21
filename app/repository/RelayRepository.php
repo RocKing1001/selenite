@@ -7,7 +7,7 @@ class RelayRepository extends Repository
     public function getById(string $id): \model\Relay
     {
         try {
-            $staged = $this->connection->prepare("SELECT id, planet, relay_name FROM relays WHERE id = ?");
+            $staged = $this->connection->prepare('SELECT id, planet, relay_name FROM relays WHERE id = ?');
             $staged->execute([$id]);
 
             $staged->setFetchMode(\PDO::FETCH_CLASS, '\\model\\Relay');

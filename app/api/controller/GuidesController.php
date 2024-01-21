@@ -13,10 +13,15 @@ class GuidesController
         $this->response();
     }
 
-    private function response(): void {
+    private function post(): void
+    {
 
+    }
+
+    private function response(): void
+    {
         $fetched = $this->service->getAllGuides();
-        
+
         header('Content-Type: application/json; charset=UTF-8');
         echo json_encode($fetched);
         exit;

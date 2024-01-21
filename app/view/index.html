@@ -1,101 +1,101 @@
 <script>
-    /**
-     * @typedef {Object} WfData
-     * @property {string} php_version
-     * @property {Object} baro
-     * @property {string} baro.time
-     * @property {string} baro.relay
-    */
+  /**
+   * @typedef {Object} WfData
+   * @property {Object} baro
+   * @property {string} baro.time
+   * @property {string} baro.relay
 
+   * @typedef {Object} Guide
+   * @property {Object} guide_id
+   * @property {string} author
+   * @property {string} title
+   * @property {string} content
+   * @property {string} date_published
+   */
 
-    function refresh() {
-      const url = "/api/warframe";
-      fetch(url).then(res => res.json()).then(json => update(json)).catch(console.error);
-    }
+  function refresh() {
+    const url = "/api/warframe";
+    fetch(url)
+      .then((res) => res.json())
+      .then((json) => update(json))
+      .catch(console.error);
+  }
 
+  /**
+   * @param {WfData} data
+   */
+  function update(data) {
+    let baroDay = document.getElementById("baro-day");
+    let baroRelay = document.getElementById("baro-relay");
+    baroDay.innerText = data.baro.time;
+    baroRelay.innerText = data.baro.relay;
+  }
 
-    /**
-     * @param {WfData} data
-     */
-    function update(data) {
-        let baroDay = document.getElementById("baro-day");
-        let baroRelay = document.getElementById("baro-relay");
-        baroDay.innerText = data.baro.time;
-        baroRelay.innerText = data.baro.relay;
-    }
+  /**
+   * @param {Guide} data
+   */
+  function updateGuides(data) {}
 
-    /**
-     * @param {string} endpoint
-     */
-    function hypeEvent(data) {
-      
-    }
+  /**
+   * @param {string} endpoint
+   */
+  function hypeEvent(endpoint) {}
 
-    // call only once
-    refresh();
+  // call only once
+  refresh();
 </script>
 
 <main class="container">
-    <h1 class="my-4">Welcome Tenno</h1>
-    <div class="container">
-        <div class="d-flex flex-row gap-3 align-items-center">
-            <h3 class="my-3">World time</h3>
-            <button type="button" class="btn btn-outline-light" onclick="refresh()">Refresh</button>
-        </div>
-        <div class="row gap-3">
-            <div class="card col my-2" style="min-width: 20rem; min-height: 8rem;">
-                <div class="card-body">
-                    <h5 class="card-title">⏰Plains of Eidolon (Cetus)</h5>
-                    <p class="card-text">00:00:00</p>
-                </div>
-            </div>
-            <div class="card col my-2" style="min-width: 20rem; min-height: 8rem;">
-                <div class="card-body">
-                    <h5 class="card-title">⏰Orb Vallis (Fortuna)</h5>
-                    <p class="card-text">00:00:00</p>
-                </div>
-            </div>
-            <div class="card col my-2" style="min-width: 20rem; min-height: 8rem;">
-                <div class="card-body">
-                    <h5 class="card-title">⏰Cambion Drift (Deimos)</h5>
-                    <p class="card-text">00:00:00</p>
-                </div>
-            </div>
-        </div>
-        <h3 class="my-3">Baro event</h3>
-        <div class="row gap-3">
-            <div class="card col my-2" style="min-width: 20rem; min-height: 8rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Baro Ki'Teer (Void trader)</h5>
-                    <p class="card-text mb-0" id="baro-day">Loading data...</p>
-                    <p class="card-text" id="baro-relay">JS needs to be enabled</p>
-                    <button class="btn btn-primary">Hype this event</button>
-                </div>
-            </div>
-        </div>
-        <h3 class="my-3">Latest guides</h3>
-        <div class="row gap-3">
-            <div class="card col my-2" style="min-width: 50rem; min-height: 8rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Baro Ki'Teer (Void trader)</h5>
-                    <p class="card-text mb-0" id="baro-day">Loading data...</p>
-                    <p class="card-text" id="baro-relay">JS needs to be enabled</p>
-                </div>
-            </div>
-            <div class="card col my-2" style="min-width: 50rem; min-height: 8rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Baro Ki'Teer (Void trader)</h5>
-                    <p class="card-text mb-0" id="baro-day">Loading data...</p>
-                    <p class="card-text" id="baro-relay">JS needs to be enabled</p>
-                </div>
-            </div>
-            <div class="card col my-2" style="min-width: 50rem; min-height: 8rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Baro Ki'Teer (Void trader)</h5>
-                    <p class="card-text mb-0" id="baro-day">Loading data...</p>
-                    <p class="card-text" id="baro-relay">JS needs to be enabled</p>
-                </div>
-            </div>
-        </div>
+  <h1 class="my-4">Welcome Tenno</h1>
+  <div class="container">
+    <div class="d-flex flex-row gap-3 align-items-center">
+      <h3 class="my-3">World time</h3>
+      <button type="button" class="btn btn-outline-light" onclick="refresh()">
+        Refresh
+      </button>
     </div>
+    <div class="row gap-3">
+      <div class="card col my-2" style="min-width: 20rem; min-height: 8rem">
+        <div class="card-body">
+          <h5 class="card-title">⏰Plains of Eidolon (Cetus)</h5>
+          <p class="card-text">00:00:00</p>
+        </div>
+      </div>
+      <div class="card col my-2" style="min-width: 20rem; min-height: 8rem">
+        <div class="card-body">
+          <h5 class="card-title">⏰Orb Vallis (Fortuna)</h5>
+          <p class="card-text">00:00:00</p>
+        </div>
+      </div>
+      <div class="card col my-2" style="min-width: 20rem; min-height: 8rem">
+        <div class="card-body">
+          <h5 class="card-title">⏰Cambion Drift (Deimos)</h5>
+          <p class="card-text">00:00:00</p>
+        </div>
+      </div>
+    </div>
+    <h3 class="my-3">Baro event</h3>
+    <div class="row gap-3">
+      <div class="card col my-2" style="min-width: 20rem; min-height: 8rem">
+        <div class="card-body">
+          <h5 class="card-title">Baro Ki'Teer (Void trader)</h5>
+          <p class="card-text mb-0" id="baro-day">Loading data...</p>
+          <p class="card-text" id="baro-relay">JS needs to be enabled</p>
+          <button class="btn btn-primary">Hype this event</button>
+        </div>
+      </div>
+    </div>
+    <h3 class="my-3">Latest guides</h3>
+    <? if (@$_SESSION['user_id'] != null) { echo '
+    <a href="/guide?new=1">create a new guide</a>'; } ?>
+    <div class="row gap-3">
+      <div class="card col my-2" style="min-width: 50rem; min-height: 8rem">
+        <div class="card-body">
+          <h5 class="card-title">Baro Ki'Teer (Void trader)</h5>
+          <p class="card-text mb-0" id="baro-day">Loading data...</p>
+          <p class="card-text" id="baro-relay">JS needs to be enabled</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </main>

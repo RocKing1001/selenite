@@ -6,10 +6,11 @@ class UrlRouter extends ErrorHandledRouter
 {
     public function route(string $path): void
     {
+
         if ($this->isPathApi($path)) {
-            $this->handleApiRoute($path);
+            $this->handleApiRoute(parse_url($path)['path']);
         } else {
-            $this->handleRoute($path);
+            $this->handleRoute(parse_url($path)['path']);
         }
     }
 
