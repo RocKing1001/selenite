@@ -4,13 +4,15 @@
    * @property {Object} baro
    * @property {string} baro.time
    * @property {string} baro.relay
-
-   * @typedef {Object} Guide
-   * @property {Object} guide_id
-   * @property {string} author
-   * @property {string} title
-   * @property {string} content
-   * @property {string} date_published
+   * @property {Object} cetus
+   * @property {string} cetus.state
+   * @property {string} cetus.timeLeft
+   * @property {Object} fortuna
+   * @property {string} fortuna.state
+   * @property {string} fortuna.timeLeft
+   * @property {Object} deimos
+   * @property {string} deimos.state
+   * @property {string} deimos.timeLeft
    */
 
   function refresh() {
@@ -29,28 +31,38 @@
     let baroRelay = document.getElementById("baro-relay");
     baroDay.innerText = data.baro.time;
     baroRelay.innerText = data.baro.relay;
+
+    let cetus = document.getElementById("cetus");
+    cetus.innerText = `${data.cetus.state} ends in ${data.cetus.timeLeft}`;
+    let fortuna = document.getElementById("fortuna");
+    fortuna.innerText = `${data.fortuna.state} ends in ${data.fortuna.timeLeft}`;
+    let deimos = document.getElementById("deimos");
+    deimos.innerText = `${data.deimos.state} ends in ${data.deimos.timeLeft}`;
   }
 
   /**
    * @param {Guide} data
    */
-  function updateGuides(data) {}
+  function updateGuides(data) { }
 
   /**
    * @param {string} endpoint
    */
-  function hypeEvent(endpoint) {}
+  function hypeEvent(endpoint) { }
 
   // call only once
   refresh();
 </script>
 
 <main class="container">
-  <h1 class="my-4">Welcome Tenno</h1>
+  <h1 class="my-4">Welcome
+    <? echo @$_SESSION['username'] ?? 'Tenno'; ?>
+  </h1>
   <div class="container">
     <div class="d-flex flex-row gap-3 align-items-center">
       <h3 class="my-3">World time</h3>
-      <button type="button" class="btn btn-outline-light" onclick="refresh()">
+      <button type="button" class="btn btn-outline-light"
+        title="The world time is updated once every 5~ minutes due to technical reasons" onclick="refresh()">
         Refresh
       </button>
     </div>
@@ -58,19 +70,19 @@
       <div class="card col my-2" style="min-width: 20rem; min-height: 8rem">
         <div class="card-body">
           <h5 class="card-title">⏰Plains of Eidolon (Cetus)</h5>
-          <p class="card-text">00:00:00</p>
+          <p id="cetus" class="card-text">Loading... needs JS enabled</p>
         </div>
       </div>
       <div class="card col my-2" style="min-width: 20rem; min-height: 8rem">
         <div class="card-body">
           <h5 class="card-title">⏰Orb Vallis (Fortuna)</h5>
-          <p class="card-text">00:00:00</p>
+          <p id="fortuna" class="card-text">Loading... needs JS enabled</p>
         </div>
       </div>
       <div class="card col my-2" style="min-width: 20rem; min-height: 8rem">
         <div class="card-body">
           <h5 class="card-title">⏰Cambion Drift (Deimos)</h5>
-          <p class="card-text">00:00:00</p>
+          <p id="deimos" class="card-text">Loading... needs JS enabled</p>
         </div>
       </div>
     </div>
@@ -81,19 +93,7 @@
           <h5 class="card-title">Baro Ki'Teer (Void trader)</h5>
           <p class="card-text mb-0" id="baro-day">Loading data...</p>
           <p class="card-text" id="baro-relay">JS needs to be enabled</p>
-          <button class="btn btn-primary">Hype this event</button>
-        </div>
-      </div>
-    </div>
-    <h3 class="my-3">Latest guides</h3>
-    <? if (@$_SESSION['user_id'] != null) { echo '
-    <a href="/guide?new=1">create a new guide</a>'; } ?>
-    <div class="row gap-3">
-      <div class="card col my-2" style="min-width: 50rem; min-height: 8rem">
-        <div class="card-body">
-          <h5 class="card-title">Baro Ki'Teer (Void trader)</h5>
-          <p class="card-text mb-0" id="baro-day">Loading data...</p>
-          <p class="card-text" id="baro-relay">JS needs to be enabled</p>
+          <!-- <button class="btn btn-primary">Hype this event</button> -->
         </div>
       </div>
     </div>

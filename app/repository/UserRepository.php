@@ -42,7 +42,6 @@ class UserRepository extends Repository
     {
         try {
             $staged = $this->connection->prepare('DELETE FROM users WHERE user_id = ? AND pass = ?');
-            var_dump([$uid, $pass]);
             $staged->execute([$uid, $pass]);
 
             return $staged->rowCount() > 0;

@@ -18,7 +18,6 @@ class ProfileController extends Controller
             $uid = $_SESSION['uid'];
             $password = filter_var($_POST['old']);
 
-            var_dump($password);
             try {
                 if (! $this->service->deleteUser($uid, $password)) {
                     echo "<script>alert('User deletion failed! Invalid password.')</script>";

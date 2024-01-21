@@ -16,24 +16,37 @@ class WarframeController
 
     private function response(): void
     {
+
+        //undocumented official api
+        //I moved on to using a community maintained api which has same features but
+        //more documented
+        //$url = 'https://content.warframe.com/dynamic/worldState.php';
+
         // fetch worldstate data
-        $url = 'https://content.warframe.com/dynamic/worldState.php';
+        $url = 'https://api.warframestat.us/pc/';
+
         $jsonString = file_get_contents($url);
 
         $fetchedData = json_decode($jsonString);
 
-        $baroTime = (int) $fetchedData->VoidTraders[0]->Activation->{'$date'}->{'$numberLong'} / 1000;
-        $baroTimeReadable = date('jS M', $baroTime);
+        $dateTime = new \DateTime($fetchedData->voidTraders[0]->activation);
+        $baroTimeMilliseconds = $dateTime->getTimestamp() * 1000;
+        $baroTimeReadable = date('jS M', $dateTime->getTimestamp());
 
-        $relayId = $fetchedData->VoidTraders[0]->Node;
+        //$relayId = $fetchedData->VoidTraders[0]->Node;
 
-        $relay = $this->service->getRelayById($relayId);
+        // this
+        // $relay = $this->service->getRelayById('SaturnHUB');
+        $relay = $fetchedData->voidTraders[0]->location;
 
         $data = [
             'baro' => [
                 'time' => $baroTimeReadable,
-                'relay' => $relay->getRelayName().' ('.$relay->getPlanet().')',
+                'relay' => $relay,
             ],
+            'cetus' => $fetchedData->cetusCycle,
+            'fortuna' => $fetchedData->vallisCycle,
+            'deimos' => $fetchedData->cambionCycle,
         ];
 
         header('Content-Type: application/json; charset=UTF-8');

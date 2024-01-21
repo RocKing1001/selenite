@@ -1,0 +1,77 @@
+<div class="container mt-5">
+  <h1>
+    Here is my calculator to get the hardest resource in the game: Aargon
+    crystals
+  </h1>
+  <p>
+    NOTE: This resource is extremely unstable and will be erased from your
+    inventory once every 24 hours. So only collect as much as you need!
+  </p>
+
+  <form class="d-flex flex-column gap-3" onsubmit="calculate">
+    <div>
+      <label for="amount">How many aargon crystals do you want?</label>
+      <input type="number" id="amount" name="amount" class="form-control" value="5" min="1" required />
+    </div>
+    <div>
+      <label for="amount">What is your progression in warframe?</label>
+      <select id="level" required class="form-control">
+        <option value="early">Early game</option>
+        <option value="mid">Mid game</option>
+        <option value="postwar">Finished the new war quest</option>
+        <option value="eidolon">
+          Able to easily hunt eidolons for arcanes
+        </option>
+      </select>
+    </div>
+    <input type="submit" value="Calculate my path" id="calculate" class="btn btn-primary" />
+  </form>
+
+  <p id="answer"></p>
+</div>
+
+<script>
+  document.querySelector("form").onsubmit = (e) => {
+    e.preventDefault();
+    calculate();
+  };
+  function calculate() {
+    let amount = parseInt(document.querySelector("#amount").value) ?? 0;
+    let level = document.querySelector("#level").value;
+
+    let output = "";
+    let perRunAmount = 0.5;
+    let perRunTime = 25; // minutes
+
+    switch (level) {
+      case "mid":
+        perRunAmount = 2;
+        perRunTime = 15;
+        output +=
+          "You must go to Teshub. Enemy level 10-15. Aargon crystals will spawn in containers which you have to open. Ignore the objective as much as you can. Something like a shade would be useful to make you go invisible when searching! You can also put several different mods on your warframe to be able to view containers on your radar. You will have access to a limited tileset, but the low enemy level makes it ideal place to search for containers!";
+        break;
+      case "postwar":
+        perRunAmount = 2.5;
+        perRunTime = 10;
+        output +=
+          "By this point, you probably have unlocked [redacted], and you can use ctrl key to effectively search containers. Anywhere in the void would be a good place to farm this. You can focus on a speed build optimise your mission time to be able to run as many of these missions as you can!";
+        break;
+      case "eidolon":
+        perRunAmount = 5;
+        perRunTime = 5; // this can actually be as low as 2 minutes, end game is a wide category
+        output +=
+          "You will have to build Xaku and focus on its fourth ability. This allows you to break containers. Along with that, build for speed and resource affinity. You have to speed around the map and break all containers as fast as you can. You will have to do Ukko, with enemy levels of 30-35. Bringing an AOE weapon will also help. I have recommended Ukko because it is a capture weapon, and it gives you access to the whole tileset. So your objective is to break all the containers on the map. That is what Xaku will be used for. Keep repeating and you will be getting 5-10 every run";
+        break;
+      default: // early
+        perRunAmount = 0.5; // early game players die easily, and are unable to explore the whole map
+        perRunTime = 25;
+        output +=
+          "You must go to Teshub. Enemy level 10-15. Aargon crystals will spawn in containers which you have to open. Ignore the objective as much as you can. You will have access to a limited tileset, but the low enemy level makes it ideal place to search for containers!";
+        break;
+    }
+
+    output += ` It will take you approximately ${(amount / perRunAmount) * perRunTime} minutes`;
+
+    document.querySelector("#answer").innerText = output;
+  }
+</script>
