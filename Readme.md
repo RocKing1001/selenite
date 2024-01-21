@@ -5,6 +5,8 @@ paid a fair wage when writing it!!
 
 The app will be deployed on [localhost](http://127.0.0.1:8080)
 
+Default login is test@testing.com:itestnow
+
 ## Explaination of my app
 
 I have a calculator for calculating how long it takes to resource grind the most
