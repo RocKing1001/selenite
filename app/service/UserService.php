@@ -11,11 +11,24 @@ class UserService
         $this->repository = new \repository\UserRepository();
     }
 
+    public function hashPassAndRegister(string $email, string $pass): \model\User|false
+    {
+        $passHashed = $this->hash_password($pass);
+
+        return $this->repository->addUser($email, $passHashed);
+    }
+
     public function hashPassAndLogin(string $email, string $pass): \model\User|false
     {
         $passHashed = $this->hash_password($pass);
 
         return $this->repository->getUser($email, $passHashed);
+    }
+
+    public function deleteUser(string $uid, string $password): bool
+    {
+        return $this->repository->deleteUser($uid, $this->hash_password($password));
+
     }
 
     public function login(string $email, string $pass): \model\User|false

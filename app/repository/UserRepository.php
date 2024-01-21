@@ -21,6 +21,38 @@ class UserRepository extends Repository
         }
     }
 
+    public function addUser(string $email, string $pass): \model\User|false
+    {
+
+        try {
+            $staged = $this->connection->prepare('INSERT INTO users (email, pass, username, pfp) VALUES (?, ?, ?, ?)');
+            $staged->execute([$email, $pass, 'Anonymous', 'Default']);
+
+            // if it gets modified, then we fetch the new user and return it
+            if ($staged->rowCount() > 0) {
+                return $this->getUser($email, $pass);
+            }
+
+        } catch (\Exception $e) {
+            throw new \error\InternalServer();
+        }
+    }
+
+    public function deleteUser(string $uid, string $pass): bool
+    {
+        try {
+            $staged = $this->connection->prepare('DELETE FROM users WHERE user_id = ? AND pass = ?');
+            var_dump([$uid, $pass]);
+            $staged->execute([$uid, $pass]);
+
+            return $staged->rowCount() > 0;
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+            throw new \error\InternalServer();
+        }
+
+    }
+
     public function updateUsername(string $uid, string $username): void
     {
         try {

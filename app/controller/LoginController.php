@@ -16,7 +16,11 @@ class LoginController extends Controller
             $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
             $password = filter_var($_POST['password']);
 
-            $user = $this->service->hashPassAndLogin($email, $password);
+            if (@$_POST['register'] != null) {
+                $user = $this->service->hashPassAndRegister($email, $password);
+            } else {
+                $user = $this->service->hashPassAndLogin($email, $password);
+            }
 
             if (! $user) {
                 echo "<script>alert('invalid username/password provided')</script>";

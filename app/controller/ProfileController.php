@@ -13,9 +13,24 @@ class ProfileController extends Controller
 
         $this->render();
         if (@$_GET['logout'] == true) {
-            $_SESSION['username'] = null;
-            session_destroy();
-            echo '<script>window.location.href = "/login";</script>';
+            $this->destroy_session();
+        } elseif (@$_POST['delete'] != null) {
+            $uid = $_SESSION['uid'];
+            $password = filter_var($_POST['old']);
+
+            var_dump($password);
+            try {
+                if (! $this->service->deleteUser($uid, $password)) {
+                    echo "<script>alert('User deletion failed! Invalid password.')</script>";
+                } else {
+                    $this->destroy_session();
+                    echo '<script>window.location.href = "/login";</script>';
+                }
+            } catch (\Exception $e) {
+                echo "<script>alert('User deletion failed!')</script>";
+                //throw new \error\InternalServer();
+            }
+
         } elseif (@$_POST != null) {
             $uid = $_SESSION['uid'];
 
@@ -45,5 +60,13 @@ class ProfileController extends Controller
                 }
             }
         }
+    }
+
+    private function destroy_session(): void
+    {
+
+        $_SESSION['username'] = null;
+        session_destroy();
+        echo '<script>window.location.href = "/login";</script>';
     }
 }
