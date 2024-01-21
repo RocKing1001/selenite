@@ -3,5 +3,6 @@ CREATE TABLE users (
     email VARCHAR(255) NOT NULL,
     pass VARCHAR(255) NOT NULL,
     username VARCHAR(255) NOT NULL,
-    pfp VARCHAR(255)
+    pfp VARCHAR(255),
+    UNIQUE (email)
 );
